@@ -1,4 +1,4 @@
-# Team 9 Project 
+# Grocery Store POS 
  Team Overview: 
 
      Name: Youngjune Lee, Ayman Ghaddar, Harshavardhan Reddipalli, Parth Patel
