@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> Point of Sale Application</title>
+    <script src="./POS.js" type="module" defer></script>
+    <script>// Authentication update
+      function checkAuthentication() {
+        const isAuthenticated = sessionStorage.getItem('authenticated');
+        if (!isAuthenticated || isAuthenticated !== 'true') {
+          window.location.href = 'auth.html'; 
+        }
+      }
+      checkAuthentication(); 
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/pouchdb@8.0.1/dist/pouchdb.min.js"></script>
+    <link href="./POS.css" rel="stylesheet">
+  </head>
+  <body>
+  <div class="pos-container">
+    <div class="pos-right">
+      <div class="pos-black-box">
+        <div class="pos-total">
+          <div class="pos-label">Sub Total</div>
+          <div class="pos-value" id="Sub">$0.00</div>
+        </div>
+        <div class="pos-total">
+          <div class="pos-label">Tax</div>
+          <div class="pos-value" id="Tax">$0.00</div>
+        </div>
+        <div class="pos-total">
+          <div class="pos-label">Grand Total</div>
+          <div class="pos-value" id="grandTotal">$0.00</div>
+        </div>
+        <button class="pos-pay">PAY</button>
+      </div>
+
+      <div class="pos-buttons-group">
+          <button class="pos-button red" class="b">VOID INVOICE</button>
+          <button  class="pos-button yellow" class="b">FETCH ON HOLD</button>
+          <button class="pos-button orange" class="b" id="lookup">TS LOOKUP</button>
+          <button class="pos-button blue" class="b">Options</button>
+
+          <button id="Cash" class="pos-button green" class="b">CASH</button>
+          <button id="Check" class="pos-button green" class="b">CHECK</button>
+          <button id="Credit" class="pos-button green" class="b">CREDIT/DEBIT</button>
+          <button class="pos-button green" class="b">ACCOUNT</button>
+   
+      
+          <button class="pos-button yellow" class="b">CLOSE SHIFT</button>
+          <button class="pos-button yellow" class="b">INVENTORY ADJUST/RECEIVE</button>
+          <button class="pos-button orange" class="b">FIND</button>
+          <button class="pos-button orange" class="b">DAILY REPORT</button>
+      </div>
+
+      <div class="transaction-history">
+
+        <div class="tr">
+          <input class="t" type="button" id="view-history" value="View Transaction History">
+          <input class="t" type="button" id="sign-up" value="Sign-up Customer for Transaction History">
+        </div>
+      </div>
+
+      <div class="pos-customer-info">
+        <button class="pos-customer-tab active">Customer Info</button>
+        <button class="pos-customer-tab">Customer Notes</button>
+        <textarea class="pos-customer-text" rows="4" placeholder="Enter customer info or notes"></textarea>
+      </div>
+      <div class="pos-bottom">
+          <button class="pos-bottom-button">F1-Help</button>
+          <button class="pos-bottom-button">F2-Inventory</button>
+          <button class="pos-bottom-button">F3-Clock In/Out</button>
+          <button class="pos-bottom-button">F4-Customers</button>
+          <button class="pos-bottom-button">F5-Price Check</button>
+          <button class="pos-bottom-button">F6-Cash Sale</button>
+          <button class="pos-bottom-button">F7-Check Sale</button>
+          <button class="pos-bottom-button">F8- CC Sale</button>
+          <button class="pos-bottom-button">F9-On Account</button>
+          <button class="pos-bottom-button">F10-Cashier Fxns</button>
+          <button class="pos-bottom-button">F11-Invoice Info</button>
+          <button class="pos-bottom-button">F12-Item Options</button>
+      </div>
+    </div>
+    <div class="pos-left">
+      <div class="pos-scan">
+        <div class="bar-container">
+          <label for="barcode" id="label" class="pos-barcode"> Scanned Barcodes Will Appear Below</label>
+          <input id="barcode" type="text" class="pos-barcode" readonly="readonly"> 
+        </div>
+        <div class="quantity-container">
+          <label for="quantity" id="label2" class="pos-quantity"> Quantity</label>
+          <input type="number" id="quantity" class="pos-quantity" placeholder="0">
+        </div>
+        <button class="pos-search">Search</button>
+      </div>
+      <div class="pos-table">
+        <table>
+          <thead>
+            <tr>
+              <th>ID #</th>
+              <th>Item Info</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+            <!-- scanned items will be added dynamically here -->
+          </tbody>
+        </table>
+        <div class="pos-buttons">
+          <button class="pos-delete">DELETE</button>
+          <button class="pos-discount">DISCOUNT Ctrl+L</button>
+          <div class="pos-quantity-change">
+            <button class="pos-up-arrow">&uarr;</button>
+            <button class="pos-down-arrow">&darr;</button>
+            <span>QUANTITY CHANGE</span>
+          </div>
+          <div class="pos-price-change">
+            <button class="pos-up-arrow">&uarr;</button>
+            <button class="pos-down-arrow">&darr;</button>
+            <span>PRICE CHANGE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+      </body>
+  </html>
